@@ -9,6 +9,30 @@ var curry = require('lodash.curry');
 const boardWidth = 100;
 const boardHeight = 100;
 
+var bgColors = [
+  '#66b04b',
+  '#267129',
+  '#7cb420',
+  'rgb(255, 0, 154)',
+  'rgb(255, 0, 111)',
+  'rgb(255, 7, 69)',
+  'rgb(255, 69, 16)',
+  'rgb(255, 101, 0)',
+  'rgb(226, 124, 0)',
+  'rgb(191, 143, 0)',
+  'rgb(152, 157, 0)',
+  'rgb(106, 167, 0)',
+  'rgb(24, 174, 0)',
+  'rgb(0, 179, 10)',
+  'rgb(0, 183, 77)',
+  'rgb(0, 185, 124)',
+  'rgb(0, 187, 170)',
+  'rgb(143, 121, 255)',
+  'rgb(213, 92, 255)',
+  'rgb(255, 52, 240)',
+  'rgb(255, 0, 198'
+];
+
 // TODO: Allow repeats of bones
 function skeletonFlow({ skeleton = 'skeleton', useExtraParts }) {
   request(
@@ -78,7 +102,15 @@ function skeletonFlow({ skeleton = 'skeleton', useExtraParts }) {
       // }
     }
 
-    renderSkeleton({ specs: renderSpecs });
+    var bodyColor = 'white';
+    if (probable.roll(2) === 0) {
+      if (probable.roll(2) === 0) {
+        bodyColor = probable.pickFromArray(bgColors);
+      } else {
+        bodyColor = '#222';
+      }
+    }
+    renderSkeleton({ specs: renderSpecs, bodyColor });
 
     function scaleBone(bone) {
       return {

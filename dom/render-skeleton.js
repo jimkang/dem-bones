@@ -7,7 +7,9 @@ var accessor = require('accessor')();
 // This module assumes: viewBox="0 0 100 100"
 // levelSpecs is an array in which each member is a levelSpec.
 // A levelSpec is an array containing peak coords (each of which are 2-element arrays).
-function renderSkeleton({ specs }) {
+function renderSkeleton({ specs, bodyColor }) {
+  document.body.style.backgroundColor = bodyColor;
+
   var width = +window.innerWidth;
   var height = +window.innerHeight;
 
