@@ -29,6 +29,129 @@
         [ 454, 140 ],
         [ 166, 1474 ]
       ]
+    },
+    {
+      "id": "thigh-bone-right",
+      "imageWidth": 335,
+      "imageHeight": 1568,
+      "connectors": [
+        [ 258, 85 ],
+        [ 138, 1463 ]
+      ]
+    },
+    {
+      "id": "finger-bones-right",
+      "imageWidth": 210,
+      "imageHeight": 520,
+      "connectors": [
+        [ 63, 55 ]
+      ]
+    },
+    {
+      "id": "foot-bone-left",
+      "imageWidth": 402,
+      "imageHeight": 429,
+      "connectors": [
+        [ 110, 28 ]
+      ]
+    },
+    {
+      "id": "foot-bone-right",
+      "imageWidth": 553,
+      "imageHeight": 346,
+      "connectors": [
+        [ 450, 28 ]
+      ]
+    },
+    {
+      "id": "forearm-bone-left",
+      "imageWidth": 394,
+      "imageHeight": 861,
+      "connectors": [
+        [ 115, 57 ],
+        [ 292, 847 ]
+      ]
+    },
+    {
+      "id": "forearm-bone-right",
+      "imageWidth": 226,
+      "imageHeight": 813,
+      "connectors": [
+        [ 104, 27 ],
+        [ 124, 783 ]
+      ]
+    },
+    {
+      "id": "hand-bone-right",
+      "imageWidth": 220,
+      "imageHeight": 170,
+      "connectors": [
+        [ 74, 31 ],
+        [ 123, 150 ]
+      ]
+    },
+    {
+      "id": "hip-bone",
+      "imageWidth": 908,
+      "imageHeight": 696,
+      "connectors": [
+        [ 448, 189 ],
+        [ 246, 424 ],
+        [ 756, 452 ]
+      ]
+    },
+    {
+      "id": "leg-bone-left",
+      "imageWidth": 318,
+      "imageHeight": 1300,
+      "connectors": [
+        [ 175, 55 ],
+        [ 125, 1243 ]
+      ]
+    },
+    {
+      "id": "leg-bone-right",
+      "imageWidth": 438,
+      "imageHeight": 1228,
+      "connectors": [
+        [ 302, 75 ],
+        [ 144, 1084 ]
+      ]
+    },
+    {
+      "id": "neck-bone",
+      "imageWidth": 224,
+      "imageHeight": 229,
+      "connectors": [
+        [ 132, 57 ],
+        [ 131, 200 ]
+      ]
+    },
+    {
+      "id": "thumb-bone-right",
+      "imageWidth": 119,
+      "imageHeight": 319,
+      "connectors": [
+        [ 45, 25 ]
+      ]
+    },
+    {
+      "id": "upper-arm-bone-left",
+      "imageWidth": 262,
+      "imageHeight": 1075,
+      "connectors": [
+        [ 121, 85 ],
+        [ 155, 1000 ]
+      ]
+    },
+    {
+      "id": "upper-arm-bone-right",
+      "imageWidth": 378,
+      "imageHeight": 1155,
+      "connectors": [
+        [ 280, 86 ],
+        [ 153, 1080 ]
+      ]
     }
   ]
 }

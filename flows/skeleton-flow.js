@@ -9,6 +9,7 @@ var curry = require('lodash.curry');
 const boardWidth = 100;
 const boardHeight = 100;
 
+// TODO: Allow repeats of bones
 function skeletonFlow({ skeleton = 'skeleton' }) {
   request(
     { url: `data/${skeleton}.json`, method: 'GET', json: true },
@@ -27,7 +28,7 @@ function skeletonFlow({ skeleton = 'skeleton' }) {
     var unusedBones = probable.shuffle(body.bones).map(scaleBone);
     // var unusedBones = body.bones.map(scaleBone);
 
-    while (unusedBones.length > 0) {
+    while (unusedBones.length > 0 && openConnectors.length > 0) {
       let bone = unusedBones.pop();
       let connectors = cloneDeep(bone.connectors);
       let connectorIndex = probable.roll(connectors.length);
