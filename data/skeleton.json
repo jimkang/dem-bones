@@ -1,0 +1,34 @@
+{
+  "canvasWidth": 2050,
+  "canvasHeight": 5942,
+  "bones": [
+    {
+      "id": "back-bone",
+      "imageWidth": 1138,
+      "imageHeight": 1509,
+      "connectors": [
+        [ 96, 220 ],
+        [ 1066, 266 ],
+        [ 576, 64 ],
+        [ 570, 1477 ]
+      ]
+    },
+    {
+      "id": "head-bone",
+      "imageWidth": 570,
+      "imageHeight": 754,
+      "connectors": [
+        [ 360, 560 ]
+      ]
+    },
+    {
+      "id": "thigh-bone-left",
+      "imageWidth": 555,
+      "imageHeight": 1578,
+      "connectors": [
+        [ 454, 140 ],
+        [ 166, 1474 ]
+      ]
+    }
+  ]
+}

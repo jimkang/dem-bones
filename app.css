@@ -1,0 +1,53 @@
+body {
+  font-family: futura, 'Helvetica Neue';
+  margin: 0;
+}
+
+.hidden {
+  display: none !important;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+#status-message {
+  background-color: #ffffee;
+}
+
+.dem-bones {
+  stroke: green;
+  stroke-width: 1;
+  fill: none;
+}
+
+.dem-bones path {
+  stroke: none;
+}
+
+.dem-bones .curve-dest {
+  fill: red;
+  stroke: none;
+}
+
+.hill .curve-control {
+  fill: white;
+  stroke: none;
+}
+
+.board {
+  margin-top: 1em;
+}
+
+#roll-dem-bones-button {
+  font-family: futura;
+  font-size: 1.2em;
+  color: #ddd;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: 1px solid #ddd;
+  border-radius: 1em;
+  padding: 0.2em;
+  margin-top: 1em;
+  margin-bottom: 2em;
+  width: 100%;
+  cursor: pointer;
+}
