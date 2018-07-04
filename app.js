@@ -47,7 +47,7 @@ function followRoute(routeDict) {
     skeleton: routeDict.skeleton,
     useExtraParts: routeDict.useExtraParts
   });
-  renderControls({ onRoll });
+  renderControls({ onRoll, hideControls: routeDict.hideControls });
 }
 
 function onRoll() {
