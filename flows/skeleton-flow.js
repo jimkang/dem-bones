@@ -24,24 +24,24 @@ function skeletonFlow({ skeleton = 'skeleton' }) {
     }
     var openConnectors = [[boardWidth / 2, boardHeight / 2]];
     var renderSpecs = [];
-    // var unusedBones = probable.shuffle(body.bones).map(scaleBone);
-    var unusedBones = body.bones.map(scaleBone);
+    var unusedBones = probable.shuffle(body.bones).map(scaleBone);
+    // var unusedBones = body.bones.map(scaleBone);
 
     while (unusedBones.length > 0) {
       let bone = unusedBones.pop();
       let connectors = cloneDeep(bone.connectors);
       let connectorIndex = probable.roll(connectors.length);
-      connectorIndex = 0;
+      // connectorIndex = 0;
       let connector = connectors[connectorIndex];
       console.log('connectors', cloneDeep(connectors));
       console.log('Selected connector', connector);
 
       let fixPointIndex = probable.roll(openConnectors.length);
-      fixPointIndex = 0;
+      // fixPointIndex = 0;
       let fixPoint = openConnectors[fixPointIndex];
 
       let rotationAngle = probable.roll(360);
-      rotationAngle = 0;
+      // rotationAngle = 0;
 
       let spec = {
         imageURL: `static/${bone.id}.png`,
