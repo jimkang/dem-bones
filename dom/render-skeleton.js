@@ -30,7 +30,7 @@ function renderSkeleton({ specs }) {
 
   newBones
     .append('image')
-    .attr('href', accessor('imageURL'))
+    .attr('xlink:href', accessor('imageURL'))
     .attr('width', accessor('width'))
     .attr('height', accessor('height'));
 

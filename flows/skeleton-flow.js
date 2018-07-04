@@ -10,7 +10,7 @@ const boardWidth = 100;
 const boardHeight = 100;
 
 // TODO: Allow repeats of bones
-function skeletonFlow({ skeleton = 'skeleton' }) {
+function skeletonFlow({ skeleton = 'skeleton', useExtraParts }) {
   request(
     { url: `data/${skeleton}.json`, method: 'GET', json: true },
     sb(arrangeSkeleton, handleError)
@@ -26,6 +26,11 @@ function skeletonFlow({ skeleton = 'skeleton' }) {
     var openConnectors = [[boardWidth / 2, boardHeight / 2]];
     var renderSpecs = [];
     var unusedBones = probable.shuffle(body.bones).map(scaleBone);
+    if (useExtraParts) {
+      unusedBones = unusedBones.concat(
+        probable.sample(unusedBones, probable.roll(unusedBones.length))
+      );
+    }
     // var unusedBones = body.bones.map(scaleBone);
 
     while (unusedBones.length > 0 && openConnectors.length > 0) {
@@ -69,7 +74,7 @@ function skeletonFlow({ skeleton = 'skeleton' }) {
       openConnectors = openConnectors.concat(newOpenConnectors);
       console.log('openConnectors', openConnectors);
       // if (openConnectors.length < 1) {
-        // debugger;
+      // debugger;
       // }
     }
 
@@ -98,8 +103,6 @@ function positionConnectorInContext(
 ) {
   var rotation = rotationInDegrees * Math.PI / 180;
   var x = connectorEnd[0] - connectorAnchor[0];
-  // In terms of the unit circle, -y is down.
-  // However, in terms of the SVG coord system, -y is up.
   var y = connectorEnd[1] - connectorAnchor[1];
   var hypotenuse = Math.sqrt(x * x + y * y);
   var originalAngle;
