@@ -34,7 +34,11 @@ var bgColors = [
 ];
 
 // TODO: Allow repeats of bones
-function skeletonFlow({ skeleton = 'skeleton', useExtraParts }) {
+function skeletonFlow({
+  skeleton = 'skeleton',
+  useExtraParts,
+  partExtension = 'svg'
+}) {
   request(
     { url: `data/${skeleton}.json`, method: 'GET', json: true },
     sb(arrangeSkeleton, handleError)
@@ -74,7 +78,7 @@ function skeletonFlow({ skeleton = 'skeleton', useExtraParts }) {
       // rotationAngle = 0;
 
       let spec = {
-        imageURL: `static/${bone.id}.png`,
+        imageURL: `static/${bone.id}.${partExtension}`,
         rotationAngle,
         rotationCenterX: fixPoint[0],
         rotationCenterY: fixPoint[1],
@@ -133,7 +137,7 @@ function positionConnectorInContext(
   connectorAnchor,
   connectorEnd
 ) {
-  var rotation = rotationInDegrees * Math.PI / 180;
+  var rotation = (rotationInDegrees * Math.PI) / 180;
   var x = connectorEnd[0] - connectorAnchor[0];
   var y = connectorEnd[1] - connectorAnchor[1];
   var hypotenuse = Math.sqrt(x * x + y * y);

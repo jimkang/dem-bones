@@ -16,7 +16,8 @@ var routeState = RouteState({
 function followRoute(routeDict) {
   skeletonFlow({
     skeleton: routeDict.skeleton,
-    useExtraParts: routeDict.useExtraParts
+    useExtraParts: routeDict.useExtraParts,
+    partExtension: routeDict.partExtension
   });
   renderControls({ onRoll, hideControls: routeDict.hideControls });
 }
