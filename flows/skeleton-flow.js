@@ -76,9 +76,10 @@ function skeletonFlow({
 
       let rotationAngle = probable.roll(360);
       // rotationAngle = 0;
+      let blockBGSuffix = probable.roll(2) === 0 ? '-block-bg' : '';
 
       let spec = {
-        imageURL: `static/${bone.id}.${partExtension}`,
+        imageURL: `static/${bone.id}${blockBGSuffix}.${partExtension}`,
         rotationAngle,
         rotationCenterX: fixPoint[0],
         rotationCenterY: fixPoint[1],
@@ -107,8 +108,8 @@ function skeletonFlow({
     }
 
     var bodyColor = 'white';
-    if (probable.roll(2) === 0) {
-      if (probable.roll(2) === 0) {
+    if (probable.roll(4) > 0) {
+      if (probable.roll(4) > 0) {
         bodyColor = probable.pickFromArray(bgColors);
       } else {
         bodyColor = '#222';
