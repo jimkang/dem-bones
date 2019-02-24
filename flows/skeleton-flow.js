@@ -2,7 +2,8 @@ var request = require('basic-browser-request');
 var sb = require('standard-bail')();
 var handleError = require('handle-error-web');
 var renderSkeleton = require('../dom/render-skeleton');
-var probable = require('probable');
+var Probable = require('probable').createProbable;
+var seedrandom = require('seedrandom');
 var cloneDeep = require('lodash.clonedeep');
 var curry = require('lodash.curry');
 
@@ -37,8 +38,10 @@ var bgColors = [
 function skeletonFlow({
   skeleton = 'skeleton',
   useExtraParts,
-  partExtension = 'svg'
+  partExtension = 'svg',
+  seed
 }) {
+  var probable = Probable({ random: seedrandom(seed) });
   request(
     { url: `data/${skeleton}.json`, method: 'GET', json: true },
     sb(arrangeSkeleton, handleError)

@@ -14,10 +14,15 @@ var routeState = RouteState({
 })();
 
 function followRoute(routeDict) {
+  if (!routeDict.seed) {
+    routeState.addToRoute({ seed: new Date().toISOString() });
+    return;
+  }
   skeletonFlow({
     skeleton: routeDict.skeleton,
     useExtraParts: routeDict.useExtraParts,
-    partExtension: routeDict.partExtension
+    partExtension: routeDict.partExtension,
+    seed: routeDict.seed
   });
   renderControls({ onRoll, hideControls: routeDict.hideControls });
 }

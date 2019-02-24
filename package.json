@@ -35,6 +35,7 @@
     "lodash.curry": "^4.1.1",
     "probable": "^2.1.1",
     "route-state": "^1.1.2",
+    "seedrandom": "^2.4.4",
     "standard-bail": "^2.0.1"
   }
 }
