@@ -10,6 +10,8 @@ var curry = require('lodash.curry');
 const boardWidth = 100;
 const boardHeight = 100;
 
+const maxTries = 1000;
+
 var bgColors = [
   '#66b04b',
   '#267129',
@@ -38,7 +40,10 @@ var bgColors = [
 function skeletonFlow({
   skeleton = 'skeleton',
   useExtraParts,
+  numberOfSetsToUse = 1,
   partExtension = 'svg',
+  minimumNumberOfBones = 1,
+  useBlockBG = 'sometimes',
   seed
 }) {
   var probable = Probable({ random: seedrandom(seed) });
@@ -54,61 +59,80 @@ function skeletonFlow({
     if (scaleY < scale) {
       scale = scaleY;
     }
-    var openConnectors = [[boardWidth / 2, boardHeight / 2]];
     var renderSpecs = [];
-    var unusedBones = probable.shuffle(body.bones).map(scaleBone);
-    if (useExtraParts) {
-      unusedBones = unusedBones.concat(
-        probable.sample(unusedBones, probable.roll(unusedBones.length))
-      );
-    }
-    // var unusedBones = body.bones.map(scaleBone);
-
-    while (unusedBones.length > 0 && openConnectors.length > 0) {
-      let bone = unusedBones.pop();
-      let connectors = cloneDeep(bone.connectors);
-      let connectorIndex = probable.roll(connectors.length);
-      // connectorIndex = 0;
-      let connector = connectors[connectorIndex];
-      console.log('connectors', cloneDeep(connectors));
-      console.log('Selected connector', connector);
-
-      let fixPointIndex = probable.roll(openConnectors.length);
-      // fixPointIndex = 0;
-      let fixPoint = openConnectors[fixPointIndex];
-
-      let rotationAngle = probable.roll(360);
-      // rotationAngle = 0;
-      let blockBGSuffix = probable.roll(2) === 0 ? '-block-bg' : '';
-
-      let spec = {
-        imageURL: `static/${bone.id}${blockBGSuffix}.${partExtension}`,
-        rotationAngle,
-        rotationCenterX: fixPoint[0],
-        rotationCenterY: fixPoint[1],
-        translateX: fixPoint[0] - connector[0],
-        translateY: fixPoint[1] - connector[1],
-        width: bone.imageWidth,
-        height: bone.imageHeight
-      };
-      renderSpecs.push(spec);
-
-      if (renderSpecs.length > 1) {
-        // If we've just connected a bone to the center starting point,
-        // then we can use this connect again.
-        connectors.splice(connectorIndex, 1);
+    var tries = 0;
+    do {
+      renderSpecs.length = 0;
+      let openConnectors = [[boardWidth / 2, boardHeight / 2]];
+      let singleSkeletonSet = probable.shuffle(body.bones).map(scaleBone);
+      // The "deep" properties will only be copied by reference, but
+      // that should be OK for now.
+      let unusedBones = singleSkeletonSet.slice();
+      if (useExtraParts) {
+        numberOfSetsToUse += 1;
       }
-      openConnectors.splice(fixPointIndex, 1);
-      let newOpenConnectors = connectors.map(
-        curry(positionConnectorInContext)(rotationAngle, fixPoint, connector)
-      );
-      console.log('newOpenConnectors from', bone.id, ':', newOpenConnectors);
-      openConnectors = openConnectors.concat(newOpenConnectors);
-      console.log('openConnectors', openConnectors);
-      // if (openConnectors.length < 1) {
-      // debugger;
-      // }
-    }
+
+      for (var i = 1; i < numberOfSetsToUse; ++i) {
+        unusedBones = unusedBones.concat(
+          probable.sample(
+            singleSkeletonSet,
+            probable.roll(singleSkeletonSet.length)
+          )
+        );
+      }
+
+      // TODO: Put in a generator so it can yield.
+      while (unusedBones.length > 0 && openConnectors.length > 0) {
+        let bone = unusedBones.pop();
+        let connectors = cloneDeep(bone.connectors);
+        let connectorIndex = probable.roll(connectors.length);
+        // connectorIndex = 0;
+        let connector = connectors[connectorIndex];
+        // console.log('connectors', cloneDeep(connectors));
+        // console.log('Selected connector', connector);
+
+        let fixPointIndex = probable.roll(openConnectors.length);
+        // fixPointIndex = 0;
+        let fixPoint = openConnectors[fixPointIndex];
+
+        let rotationAngle = probable.roll(360);
+        // rotationAngle = 0;
+        let blockBGSuffix = '';
+        if (
+          useBlockBG === 'always' ||
+          (useBlockBG === 'sometimes' && probable.roll(2) === 0)
+        ) {
+          blockBGSuffix = '-block-bg';
+        }
+
+        let spec = {
+          imageURL: `static/${bone.id}${blockBGSuffix}.${partExtension}`,
+          rotationAngle,
+          rotationCenterX: fixPoint[0],
+          rotationCenterY: fixPoint[1],
+          translateX: fixPoint[0] - connector[0],
+          translateY: fixPoint[1] - connector[1],
+          width: bone.imageWidth,
+          height: bone.imageHeight
+        };
+        renderSpecs.push(spec);
+
+        if (renderSpecs.length > 1) {
+          // If we've just connected a bone to the center starting point,
+          // then we can use this connect again.
+          connectors.splice(connectorIndex, 1);
+        }
+        openConnectors.splice(fixPointIndex, 1);
+        let newOpenConnectors = connectors.map(
+          curry(positionConnectorInContext)(rotationAngle, fixPoint, connector)
+        );
+        // console.log('newOpenConnectors from', bone.id, ':', newOpenConnectors);
+        openConnectors = openConnectors.concat(newOpenConnectors);
+        // console.log('openConnectors', openConnectors);
+      }
+      tries += 1;
+      console.log('tries:', tries, 'bone count:', renderSpecs.length);
+    } while (tries < maxTries && renderSpecs.length < minimumNumberOfBones);
 
     var bodyColor = 'white';
     if (probable.roll(4) > 0) {
@@ -159,7 +183,7 @@ function positionConnectorInContext(
     boardAnchor[0] + Math.cos(rotatedAngle) * hypotenuse,
     boardAnchor[1] + Math.sin(rotatedAngle) * hypotenuse
   ];
-  console.log('newConnectorEnd', newConnectorEnd);
+  //console.log('newConnectorEnd', newConnectorEnd);
   return newConnectorEnd;
 }
 

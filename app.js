@@ -22,13 +22,16 @@ function followRoute(routeDict) {
     skeleton: routeDict.skeleton,
     useExtraParts: routeDict.useExtraParts,
     partExtension: routeDict.partExtension,
+    numberOfSetsToUse: +routeDict.numberOfSetsToUse,
+    minimumNumberOfBones: +routeDict.minimumNumberOfBones,
+    useBlockBG: routeDict.useBlockBG,
     seed: routeDict.seed
   });
   renderControls({ onRoll, hideControls: routeDict.hideControls });
 }
 
 function onRoll() {
-  routeState.overwriteRouteEntirely({});
+  routeState.addToRoute({ seed: '' });
 }
 
 function reportTopLevelError(msg, url, lineNo, columnNo, error) {
