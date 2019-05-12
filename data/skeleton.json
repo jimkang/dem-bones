@@ -3,7 +3,7 @@
   "canvasHeight": 5942,
   "bones": [
     {
-      "id": "back-bone",
+      "id": "drawn/back-bone",
       "imageWidth": 1138,
       "imageHeight": 1509,
       "connectors": [
