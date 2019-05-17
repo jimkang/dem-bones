@@ -40,7 +40,7 @@
       ]
     },
     {
-      "id": "finger-bones-right",
+      "id": "drawn/finger-bones-right",
       "imageWidth": 210,
       "imageHeight": 520,
       "connectors": [
@@ -48,7 +48,7 @@
       ]
     },
     {
-      "id": "foot-bone-left",
+      "id": "drawn/foot-bone-left",
       "imageWidth": 402,
       "imageHeight": 429,
       "connectors": [
@@ -56,7 +56,7 @@
       ]
     },
     {
-      "id": "foot-bone-right",
+      "id": "drawn/foot-bone-right",
       "imageWidth": 553,
       "imageHeight": 346,
       "connectors": [
@@ -64,7 +64,7 @@
       ]
     },
     {
-      "id": "forearm-bone-left",
+      "id": "drawn/forearm-bone-left",
       "imageWidth": 394,
       "imageHeight": 861,
       "connectors": [
@@ -73,7 +73,7 @@
       ]
     },
     {
-      "id": "forearm-bone-right",
+      "id": "drawn/forearm-bone-right",
       "imageWidth": 226,
       "imageHeight": 813,
       "connectors": [
@@ -82,7 +82,7 @@
       ]
     },
     {
-      "id": "hand-bone-right",
+      "id": "drawn/hand-bone-right",
       "imageWidth": 220,
       "imageHeight": 170,
       "connectors": [
