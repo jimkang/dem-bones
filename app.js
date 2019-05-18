@@ -24,7 +24,6 @@ function followRoute(routeDict) {
     partExtension: routeDict.partExtension,
     numberOfSetsToUse: +routeDict.numberOfSetsToUse,
     minimumNumberOfBones: +routeDict.minimumNumberOfBones,
-    useBlockBG: routeDict.useBlockBG,
     seed: routeDict.seed
   });
   renderControls({ onRoll, hideControls: routeDict.hideControls });

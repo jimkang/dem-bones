@@ -1,5 +1,5 @@
 {
-  "baseLocation": "static/traced/",
+  "baseLocation": "static/block/",
   "bgColors": [
     "#66b04b",
     "#267129",
@@ -27,7 +27,7 @@
   "canvasHeight": 5942,
   "bones": [
     {
-      "id": "back-bone",
+      "id": "back-bone-block-bg",
       "imageWidth": 1138,
       "imageHeight": 1509,
       "connectors": [
@@ -38,7 +38,7 @@
       ]
     },
     {
-      "id": "head-bone",
+      "id": "head-bone-block-bg",
       "imageWidth": 570,
       "imageHeight": 754,
       "connectors": [
@@ -46,7 +46,7 @@
       ]
     },
     {
-      "id": "thigh-bone-left",
+      "id": "thigh-bone-left-block-bg",
       "imageWidth": 555,
       "imageHeight": 1578,
       "connectors": [
@@ -55,7 +55,7 @@
       ]
     },
     {
-      "id": "thigh-bone-right",
+      "id": "thigh-bone-right-block-bg",
       "imageWidth": 335,
       "imageHeight": 1568,
       "connectors": [
@@ -64,7 +64,7 @@
       ]
     },
     {
-      "id": "finger-bones-right",
+      "id": "finger-bones-right-block-bg",
       "imageWidth": 210,
       "imageHeight": 520,
       "connectors": [
@@ -72,7 +72,7 @@
       ]
     },
     {
-      "id": "foot-bone-left",
+      "id": "foot-bone-left-block-bg",
       "imageWidth": 402,
       "imageHeight": 429,
       "connectors": [
@@ -80,7 +80,7 @@
       ]
     },
     {
-      "id": "foot-bone-right",
+      "id": "foot-bone-right-block-bg",
       "imageWidth": 553,
       "imageHeight": 346,
       "connectors": [
@@ -88,7 +88,7 @@
       ]
     },
     {
-      "id": "forearm-bone-left",
+      "id": "forearm-bone-left-block-bg",
       "imageWidth": 394,
       "imageHeight": 861,
       "connectors": [
@@ -97,7 +97,7 @@
       ]
     },
     {
-      "id": "forearm-bone-right",
+      "id": "forearm-bone-right-block-bg",
       "imageWidth": 226,
       "imageHeight": 813,
       "connectors": [
@@ -106,7 +106,7 @@
       ]
     },
     {
-      "id": "hand-bone-right",
+      "id": "hand-bone-right-block-bg",
       "imageWidth": 220,
       "imageHeight": 170,
       "connectors": [
@@ -115,7 +115,7 @@
       ]
     },
     {
-      "id": "hip-bone",
+      "id": "hip-bone-block-bg",
       "imageWidth": 908,
       "imageHeight": 696,
       "connectors": [
@@ -125,7 +125,7 @@
       ]
     },
     {
-      "id": "leg-bone-left",
+      "id": "leg-bone-left-block-bg",
       "imageWidth": 318,
       "imageHeight": 1300,
       "connectors": [
@@ -134,7 +134,7 @@
       ]
     },
     {
-      "id": "leg-bone-right",
+      "id": "leg-bone-right-block-bg",
       "imageWidth": 438,
       "imageHeight": 1228,
       "connectors": [
@@ -143,7 +143,7 @@
       ]
     },
     {
-      "id": "neck-bone",
+      "id": "neck-bone-block-bg",
       "imageWidth": 224,
       "imageHeight": 229,
       "connectors": [
@@ -152,7 +152,7 @@
       ]
     },
     {
-      "id": "thumb-bone-right",
+      "id": "thumb-bone-right-block-bg",
       "imageWidth": 119,
       "imageHeight": 319,
       "connectors": [
@@ -160,7 +160,7 @@
       ]
     },
     {
-      "id": "upper-arm-bone-left",
+      "id": "upper-arm-bone-left-block-bg",
       "imageWidth": 262,
       "imageHeight": 1075,
       "connectors": [
@@ -169,7 +169,7 @@
       ]
     },
     {
-      "id": "upper-arm-bone-right",
+      "id": "upper-arm-bone-right-block-bg",
       "imageWidth": 378,
       "imageHeight": 1155,
       "connectors": [
