@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"outDir": "./built",
+		"allowJs": true,
+		"target": "es5",
+		"module": "CommonJS",
+		"lib": ["ES2015"]
+	},
+	"include": [
+		"./**/*"
+	],
+	"exclude": [
+		"./node_modules",
+		"./built",
+		"./index.js"
+	]
+}
