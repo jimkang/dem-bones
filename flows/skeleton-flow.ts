@@ -146,7 +146,7 @@ function skeletonFlow({
         imageURL: `${body.baseLocation}${src.id}.${partExtension}`,
         rotationAngle,
         msPerFrame: probable.rollDie(20) * 50000,
-        rotationPerFrame: -30 + probable.roll(31),
+        rotationPerFrame: -100 + probable.roll(101),
         rotateCount:
           probable.roll(2) === 0 ? 'indefinite' : probable.rollDie(20),
         rotationCenterX,
