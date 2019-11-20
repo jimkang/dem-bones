@@ -144,8 +144,8 @@ function skeletonFlow({
         rotationAngle,
         rotationCenterX: fixPoint[0],
         rotationCenterY: fixPoint[1],
-        translateX: connector ? fixPoint[0] - connector[0] : 0,
-        translateY: connector ? fixPoint[1] - connector[1] : 0,
+        translateX: connector ? fixPoint[0] - connector[0] : center[0],
+        translateY: connector ? fixPoint[1] - connector[1] : center[1],
         openConnectors: connectors,
         children: []
       };
