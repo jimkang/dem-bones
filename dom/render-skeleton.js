@@ -23,8 +23,7 @@ function renderSkeleton({ rootBone, bodyColor }) {
 
   bonesRoot.selectAll('*').remove();
 
-  var rootBoneGroup = appendBone(null, rootBone);
-  appendChildrenRecursively({ boneGroup: rootBoneGroup, node: rootBone });
+  appendChildrenRecursively({ boneGroup: bonesRoot, node: rootBone });
 
   function appendChildrenRecursively({ boneGroup, node }) {
     var nextGroupNodePairs = node.children.map(callAppendBone);

@@ -123,13 +123,14 @@ function skeletonFlow({
     function connectNewBoneToParent(src: BoneSrc, parent?: BoneNode) {
       let connectors = cloneDeep(src.connectors);
       let fixPoint = center;
+      let connector;
 
       if (parent) {
         let connectorIndex = probable.roll(connectors.length);
-        let connector = connectors[connectorIndex];
+        connector = connectors[connectorIndex];
 
         let fixPointIndex = probable.roll(parent.openConnectors.length);
-        let fixPoint: Pt = parent.openConnectors[fixPointIndex];
+        fixPoint = parent.openConnectors[fixPointIndex];
 
         removeItem(parent.openConnectors, fixPointIndex);
         removeItem(connectors, connectorIndex);
@@ -143,8 +144,8 @@ function skeletonFlow({
         rotationAngle,
         rotationCenterX: fixPoint[0],
         rotationCenterY: fixPoint[1],
-        translateX: fixPoint[0] - connectors[0],
-        translateY: fixPoint[1] - connectors[1],
+        translateX: connector ? fixPoint[0] - connector[0] : 0,
+        translateY: connector ? fixPoint[1] - connector[1] : 0,
         openConnectors: connectors,
         children: []
       };
