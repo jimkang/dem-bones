@@ -6,6 +6,7 @@ var Probable = require('probable').createProbable;
 var seedrandom = require('seedrandom');
 var cloneDeep = require('lodash.clonedeep');
 var curry = require('lodash.curry');
+var { range } = require('d3-array');
 
 import { Pt, BoneSrc, BoneNode } from '../types';
 
@@ -136,14 +137,20 @@ function skeletonFlow({
         removeItem(connectors, connectorIndex);
       }
 
-      let rotationAngle = probable.roll(360);
+      const rotationAngle = probable.roll(360);
+      const rotationCenterX = fixPoint[0];
+      const rotationCenterY = fixPoint[1];
 
       var newNode: BoneNode = {
         src,
         imageURL: `${body.baseLocation}${src.id}.${partExtension}`,
         rotationAngle,
-        rotationCenterX: fixPoint[0],
-        rotationCenterY: fixPoint[1],
+        msPerFrame: probable.rollDie(20) * 50000,
+        rotationPerFrame: -5 + probable.roll(6),
+        rotateCount:
+          probable.roll(2) === 0 ? 'indefinite' : probable.rollDie(20),
+        rotationCenterX,
+        rotationCenterY,
         translateX: connector ? fixPoint[0] - connector[0] : center[0],
         translateY: connector ? fixPoint[1] - connector[1] : center[1],
         openConnectors: connectors,
@@ -192,6 +199,15 @@ function countTreeNodes(sum, node) {
   } else {
     return sum + 1;
   }
+}
+
+function mod360(n) {
+  return n % 360;
+}
+
+function rotationToTransform(x, y, angle) {
+  return `rotate(${angle}, ${x}, ${y})
+    translate(${x}, ${y})`;
 }
 
 module.exports = skeletonFlow;

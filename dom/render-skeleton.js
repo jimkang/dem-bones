@@ -3,11 +3,19 @@ require('d3-transition');
 var bonesRoot = d3.select('.dem-bones');
 var board = d3.select('.board');
 var accessor = require('accessor');
+var Timer = require('d3-timer').timer;
+var curry = require('lodash.curry');
+
+var timer;
 
 // This module assumes: viewBox="0 0 100 100"
 // levelSpecs is an array in which each member is a levelSpec.
 // A levelSpec is an array containing peak coords (each of which are 2-element arrays).
 function renderSkeleton({ rootBone, bodyColor }) {
+  if (timer) {
+    timer.stop();
+  }
+
   document.body.style.backgroundColor = bodyColor;
 
   var width = +window.innerWidth;
@@ -28,6 +36,8 @@ function renderSkeleton({ rootBone, bodyColor }) {
     node: rootBone
   });
   appendChildrenRecursively({ boneGroup, node });
+
+  timer = Timer(updateTransforms);
 
   function appendChildrenRecursively({ boneGroup, node }) {
     var nextGroupNodePairs = node.children.map(callAppendBone);
@@ -74,6 +84,33 @@ function renderSkeleton({ rootBone, bodyColor }) {
   // coordsScaledTo100[1] / 100 * height
   // ];
   // }
+
+  function updateTransforms(elapsed) {
+    var bones = d3.selectAll('.bone');
+    bones.each(curry(updateRotation)(elapsed));
+    bones.attr('transform', getTransform);
+  }
+
+  function updateRotation(elapsed, boneNode) {
+    var rotationDelta =
+      (elapsed / boneNode.msPerFrame) * boneNode.rotationPerFrame;
+    boneNode.rotationAngle = (boneNode.rotationAngle + rotationDelta) % 360;
+  }
+
+  /*
+  Stop-motion style
+  function getTransformForTicks(ticks, boneNode) {
+    var elapsed = ticks - boneNode.lastUpdateTick;
+    if (elapsed > boneNode.msPerFrame) {
+      boneNode.frameIndex += 1;
+      if (boneNode.frameIndex >= boneNode.transformValues.length) {
+        boneNode.frameIndex = 0;
+      }
+      boneNode.lastUpdateTick = ticks;
+    }
+    return boneNode.transformValues[boneNode.frameIndex];
+  }
+  */
 }
 
 module.exports = renderSkeleton;
