@@ -22,7 +22,8 @@ function skeletonFlow({
   numberOfSetsToUse = 1,
   partExtension = 'svg',
   minimumNumberOfBones = 1,
-  seed
+  seed,
+  still
 }) {
   var probable = Probable({ random: seedrandom(seed) });
   var skeletonTable = probable.createTableFromSizes([
@@ -106,7 +107,7 @@ function skeletonFlow({
     } while (tries < maxTries && boneCount < minimumNumberOfBones);
 
     var bodyColor = probable.pickFromArray(body.bgColors);
-    renderSkeleton({ rootBone, bodyColor });
+    renderSkeleton({ rootBone, bodyColor, animate: !still });
 
     function scaleBoneSrc(bone) {
       return {

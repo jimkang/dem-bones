@@ -5,7 +5,8 @@ var renderControls = require('./dom/render-controls');
 
 var routeState = RouteState({
   followRoute,
-  windowObject: window
+  windowObject: window,
+  propsToCoerceToBool: ['hideControls', 'still']
 });
 
 (function go() {
@@ -13,20 +14,34 @@ var routeState = RouteState({
   routeState.routeFromHash();
 })();
 
-function followRoute(routeDict) {
-  if (!routeDict.seed) {
+function followRoute({
+  seed,
+  skeleton,
+  useExtraParts,
+  partExtension,
+  numberOfSetsToUse,
+  minimumNumberOfBones,
+  still,
+  hideControls
+}) {
+  if (!seed) {
     routeState.addToRoute({ seed: new Date().toISOString() });
     return;
   }
   skeletonFlow({
-    skeleton: routeDict.skeleton,
-    useExtraParts: routeDict.useExtraParts,
-    partExtension: routeDict.partExtension,
-    numberOfSetsToUse: +routeDict.numberOfSetsToUse,
-    minimumNumberOfBones: +routeDict.minimumNumberOfBones,
-    seed: routeDict.seed
+    skeleton,
+    useExtraParts,
+    partExtension,
+    numberOfSetsToUse: +numberOfSetsToUse,
+    minimumNumberOfBones: +minimumNumberOfBones,
+    seed,
+    still
   });
-  renderControls({ onRoll, hideControls: routeDict.hideControls });
+  renderControls({ onRoll, onToggleMove, hideControls, still });
+
+  function onToggleMove() {
+    routeState.addToRoute({ still: !still });
+  }
 }
 
 function onRoll() {

@@ -1,5 +1,5 @@
 body {
-  font-family: futura, 'Helvetica Neue';
+  font-family: Ubuntu, roboto, noto, segoe ui, arial, -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, sans-serif;
   margin: 0;
 }
 
@@ -37,12 +37,12 @@ body {
   margin-top: 1em;
 }
 
-#roll-dem-bones-button {
-  font-family: futura;
+button {
+  font-family: Ubuntu, roboto, noto, segoe ui, arial, -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, sans-serif;
   font-size: 1.2em;
-  color: #ddd;
+  color: #444;
   text-transform: uppercase;
-  background-color: transparent;
+  background-color: white;
   border: 1px solid #ddd;
   border-radius: 1em;
   padding: 0.2em;

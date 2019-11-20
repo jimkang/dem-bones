@@ -11,7 +11,7 @@ var timer;
 // This module assumes: viewBox="0 0 100 100"
 // levelSpecs is an array in which each member is a levelSpec.
 // A levelSpec is an array containing peak coords (each of which are 2-element arrays).
-function renderSkeleton({ rootBone, bodyColor }) {
+function renderSkeleton({ rootBone, bodyColor, animate }) {
   if (timer) {
     timer.stop();
   }
@@ -37,7 +37,9 @@ function renderSkeleton({ rootBone, bodyColor }) {
   });
   appendChildrenRecursively({ boneGroup, node });
 
-  timer = Timer(updateTransforms);
+  if (animate) {
+    timer = Timer(updateTransforms);
+  }
 
   function appendChildrenRecursively({ boneGroup, node }) {
     var nextGroupNodePairs = node.children.map(callAppendBone);
@@ -92,8 +94,9 @@ function renderSkeleton({ rootBone, bodyColor }) {
   }
 
   function updateRotation(elapsed, boneNode) {
-    var rotationDelta =
-      (elapsed / boneNode.msPerFrame) * boneNode.rotationPerFrame;
+    const framesElapsed = elapsed / boneNode.msPerFrame;
+    const rotationDelta = framesElapsed * boneNode.rotationPerFrame;
+    console.log('rotationDelta', rotationDelta);
     boneNode.rotationAngle = (boneNode.rotationAngle + rotationDelta) % 360;
   }
 
