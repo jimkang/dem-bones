@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@types/node": "^12.12.9",
-    "accessor": "^2.0.0",
+    "accessor": "^3.0.0",
     "basic-browser-request": "^9.0.0",
     "d3-ease": "^1.0.3",
     "d3-selection": "^1.2.0",

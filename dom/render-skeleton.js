@@ -2,7 +2,7 @@ var d3 = require('d3-selection');
 require('d3-transition');
 var bonesRoot = d3.select('.dem-bones');
 var board = d3.select('.board');
-var accessor = require('accessor')();
+var accessor = require('accessor');
 
 // This module assumes: viewBox="0 0 100 100"
 // levelSpecs is an array in which each member is a levelSpec.
