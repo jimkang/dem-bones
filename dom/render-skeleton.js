@@ -3,18 +3,17 @@ require('d3-transition');
 var bonesRoot = d3.select('.dem-bones');
 var board = d3.select('.board');
 var accessor = require('accessor');
-var Timer = require('d3-timer').timer;
 var curry = require('lodash.curry');
-
-var timer;
 
 // This module assumes: viewBox="0 0 100 100"
 // levelSpecs is an array in which each member is a levelSpec.
 // A levelSpec is an array containing peak coords (each of which are 2-element arrays).
+
+var keepAnimating = false;
+
 function renderSkeleton({ rootBone, bodyColor, animate }) {
-  if (timer) {
-    timer.stop();
-  }
+  keepAnimating = animate;
+  var lastUpdateStamp = 0;
 
   document.body.style.backgroundColor = bodyColor;
 
@@ -37,8 +36,8 @@ function renderSkeleton({ rootBone, bodyColor, animate }) {
   });
   appendChildrenRecursively({ boneGroup, node });
 
-  if (animate) {
-    timer = Timer(updateTransforms);
+  if (keepAnimating) {
+    requestAnimationFrame(updateTransforms);
   }
 
   function appendChildrenRecursively({ boneGroup, node }) {
@@ -87,16 +86,26 @@ function renderSkeleton({ rootBone, bodyColor, animate }) {
   // ];
   // }
 
-  function updateTransforms(elapsed) {
-    var bones = d3.selectAll('.bone');
-    bones.each(curry(updateRotation)(elapsed));
-    bones.attr('transform', getTransform);
+  function updateTransforms(stamp) {
+    if (lastUpdateStamp) {
+      const elapsed = stamp - lastUpdateStamp;
+      if (elapsed > 1000 / 60) {
+        let bones = d3.selectAll('.bone');
+        bones.each(curry(updateRotation)(elapsed));
+        bones.attr('transform', getTransform);
+        lastUpdateStamp = stamp;
+      }
+    } else {
+      lastUpdateStamp = stamp;
+    }
+    if (keepAnimating) {
+      requestAnimationFrame(updateTransforms);
+    }
   }
 
   function updateRotation(elapsed, boneNode) {
-    const framesElapsed = elapsed / boneNode.msPerFrame;
-    const rotationDelta = framesElapsed * boneNode.rotationPerFrame;
-    console.log('rotationDelta', rotationDelta);
+    const rotationDelta = (elapsed / boneNode.msPerRotation) * 360;
+    //console.log('rotationDelta', rotationDelta);
     boneNode.rotationAngle = (boneNode.rotationAngle + rotationDelta) % 360;
   }
 

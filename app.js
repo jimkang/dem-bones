@@ -22,7 +22,8 @@ function followRoute({
   numberOfSetsToUse,
   minimumNumberOfBones,
   still,
-  hideControls
+  hideControls,
+  maxBonesPerSet
 }) {
   if (!seed) {
     routeState.addToRoute({ seed: new Date().toISOString() });
@@ -35,7 +36,8 @@ function followRoute({
     numberOfSetsToUse: +numberOfSetsToUse,
     minimumNumberOfBones: +minimumNumberOfBones,
     seed,
-    still
+    still,
+    maxBonesPerSet
   });
   renderControls({ onRoll, onToggleMove, hideControls, still });
 

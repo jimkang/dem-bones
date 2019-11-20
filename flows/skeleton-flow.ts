@@ -23,7 +23,8 @@ function skeletonFlow({
   partExtension = 'svg',
   minimumNumberOfBones = 1,
   seed,
-  still
+  still,
+  maxBonesPerSet = -1
 }) {
   var probable = Probable({ random: seedrandom(seed) });
   var skeletonTable = probable.createTableFromSizes([
@@ -59,7 +60,10 @@ function skeletonFlow({
         .map(scaleBoneSrc);
       // The "deep" properties will only be copied by reference, but
       // that should be OK for now.
-      let unusedBoneSrcs: Array<BoneSrc> = singleSkeletonSet.slice();
+      let unusedBoneSrcs: Array<BoneSrc> = singleSkeletonSet.slice(
+        0,
+        maxBonesPerSet
+      );
       if (useExtraParts) {
         numberOfSetsToUse += 1;
       }
@@ -146,8 +150,7 @@ function skeletonFlow({
         src,
         imageURL: `${body.baseLocation}${src.id}.${partExtension}`,
         rotationAngle,
-        msPerFrame: probable.rollDie(20) * 50000,
-        rotationPerFrame: -50 + probable.roll(51),
+        msPerRotation: (5 + probable.rollDie(20)) * 2000,
         rotateCount:
           probable.roll(2) === 0 ? 'indefinite' : probable.rollDie(20),
         rotationCenterX,

@@ -11,8 +11,7 @@ export interface BoneNode {
   readonly src: BoneSrc;
   imageURL: string;
   rotationAngle: number;
-  rotationPerFrame: number;
-  msPerFrame: number;
+  msPerRotation: number;
   rotateCount: string;
   rotationCenterX: number;
   rotationCenterY: number;
