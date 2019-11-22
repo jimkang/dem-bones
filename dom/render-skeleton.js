@@ -104,7 +104,11 @@ function renderSkeleton({ rootBone, bodyColor, animate }) {
   }
 
   function updateRotation(elapsed, boneNode) {
-    const rotationDelta = (elapsed / boneNode.msPerRotation) * 360;
+    if (boneNode.shouldReverseDirection()) {
+      boneNode.direction *= -1;
+    }
+    const rotationDelta =
+      (elapsed / (boneNode.direction * boneNode.msPerRotation)) * 360;
     //console.log('rotationDelta', rotationDelta);
     boneNode.rotationAngle = (boneNode.rotationAngle + rotationDelta) % 360;
   }

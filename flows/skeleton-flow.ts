@@ -152,7 +152,13 @@ function skeletonFlow({
         src,
         imageURL: `${body.baseLocation}${src.id}.${partExtension}`,
         rotationAngle,
-        msPerRotation: (roll(2) === 0 ? -1 : 1) * (2 + rollDie(20)) * 2000,
+        direction: roll(2) === 0 ? -1 : 1,
+        msPerRotation: (2 + rollDie(20)) * 1000,
+        shouldReverseDirection: pickFromArray([
+          shouldReverseNever,
+          shouldReverseSeldom,
+          shouldReverseOften
+        ]),
         rotateCount: roll(2) === 0 ? 'indefinite' : rollDie(20),
         rotationCenterX,
         rotationCenterY,
@@ -167,6 +173,18 @@ function skeletonFlow({
       }
       return newNode;
     }
+  }
+
+  function shouldReverseNever() {
+    return false;
+  }
+
+  function shouldReverseSeldom() {
+    return roll(800) === 0;
+  }
+
+  function shouldReverseOften() {
+    return roll(16) === 0;
   }
 }
 
