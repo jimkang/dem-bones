@@ -26,8 +26,15 @@ function skeletonFlow({
   still,
   maxBonesPerSet = -1
 }) {
-  var probable = Probable({ random: seedrandom(seed) });
-  var skeletonTable = probable.createTableFromSizes([
+  var {
+    roll,
+    rollDie,
+    createTableFromSizes,
+    shuffle,
+    sample,
+    pickFromArray
+  } = Probable({ random: seedrandom(seed) });
+  var skeletonTable = createTableFromSizes([
     [1, 'skeleton'],
     [18, 'drawn-skeleton'],
     [1, 'block-skeleton']
@@ -55,9 +62,9 @@ function skeletonFlow({
     let rootBone: BoneNode;
 
     do {
-      let singleSkeletonSet: Array<BoneSrc> = probable
-        .shuffle(body.bones)
-        .map(scaleBoneSrc);
+      let singleSkeletonSet: Array<BoneSrc> = shuffle(body.bones).map(
+        scaleBoneSrc
+      );
       // The "deep" properties will only be copied by reference, but
       // that should be OK for now.
       let unusedBoneSrcs: Array<BoneSrc> = singleSkeletonSet.slice(
@@ -70,10 +77,7 @@ function skeletonFlow({
 
       for (var i = 1; i < numberOfSetsToUse; ++i) {
         unusedBoneSrcs = unusedBoneSrcs.concat(
-          probable.sample(
-            singleSkeletonSet,
-            probable.roll(singleSkeletonSet.length)
-          )
+          sample(singleSkeletonSet, roll(singleSkeletonSet.length))
         );
       }
 
@@ -82,9 +86,7 @@ function skeletonFlow({
 
       // TODO: Put in a generator so it can yield.
       while (unusedBoneSrcs.length > 0 && nodesWithOpenConnectors.length > 0) {
-        let parentConnectorIndex = probable.roll(
-          nodesWithOpenConnectors.length
-        );
+        let parentConnectorIndex = roll(nodesWithOpenConnectors.length);
         let parentNode: BoneNode =
           nodesWithOpenConnectors[parentConnectorIndex];
         let node: BoneNode = connectNewBoneToParent(
@@ -110,7 +112,7 @@ function skeletonFlow({
       console.log('tries:', tries, 'bone count:', boneCount);
     } while (tries < maxTries && boneCount < minimumNumberOfBones);
 
-    var bodyColor = probable.pickFromArray(body.bgColors);
+    var bodyColor = pickFromArray(body.bgColors);
     renderSkeleton({ rootBone, bodyColor, animate: !still });
 
     function scaleBoneSrc(bone) {
@@ -132,17 +134,17 @@ function skeletonFlow({
       let connector;
 
       if (parent) {
-        let connectorIndex = probable.roll(connectors.length);
+        let connectorIndex = roll(connectors.length);
         connector = connectors[connectorIndex];
 
-        let fixPointIndex = probable.roll(parent.openConnectors.length);
+        let fixPointIndex = roll(parent.openConnectors.length);
         fixPoint = parent.openConnectors[fixPointIndex];
 
         removeItem(parent.openConnectors, fixPointIndex);
         removeItem(connectors, connectorIndex);
       }
 
-      const rotationAngle = probable.roll(360);
+      const rotationAngle = roll(360);
       const rotationCenterX = fixPoint[0];
       const rotationCenterY = fixPoint[1];
 
@@ -150,9 +152,8 @@ function skeletonFlow({
         src,
         imageURL: `${body.baseLocation}${src.id}.${partExtension}`,
         rotationAngle,
-        msPerRotation: (5 + probable.rollDie(20)) * 2000,
-        rotateCount:
-          probable.roll(2) === 0 ? 'indefinite' : probable.rollDie(20),
+        msPerRotation: (roll(2) === 0 ? -1 : 1) * (2 + rollDie(20)) * 2000,
+        rotateCount: roll(2) === 0 ? 'indefinite' : rollDie(20),
         rotationCenterX,
         rotationCenterY,
         translateX: connector ? fixPoint[0] - connector[0] : center[0],
