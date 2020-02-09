@@ -11,7 +11,7 @@ var curry = require('lodash.curry');
 
 var keepAnimating = false;
 
-function renderSkeleton({ rootBone, bodyColor, animate }) {
+function renderSkeleton({ rootBone, bodyColor, animate, message }) {
   keepAnimating = animate;
   var lastUpdateStamp = 0;
 
@@ -65,6 +65,24 @@ function renderSkeleton({ rootBone, bodyColor, animate }) {
       .attr('width', accessor({ path: 'src/imageWidth' }))
       .attr('height', accessor({ path: 'src/imageHeight' }));
 
+    if (node.src.id === 'head-bone' && message) {
+      newBoneGroup
+        .append('foreignObject')
+        .attr('x', 15)
+        .attr('y', 0)
+        .attr('width', 30)
+        .attr('height', 50)
+        .append('xhtml:div')
+        .classed('message', true)
+        .text(message);
+      newBoneGroup
+        .append('line')
+        .classed('callout', true)
+        .attr('x1', 9)
+        .attr('x2', 14)
+        .attr('y1', 10)
+        .attr('y2', 7);
+    }
     return { boneGroup: newBoneGroup, node };
   }
 

@@ -1,14 +1,14 @@
-var request = require('basic-browser-request');
-var sb = require('standard-bail')();
-var handleError = require('handle-error-web');
-var renderSkeleton = require('../dom/render-skeleton');
-var Probable = require('probable').createProbable;
-var seedrandom = require('seedrandom');
-var cloneDeep = require('lodash.clonedeep');
-var curry = require('lodash.curry');
-var { range } = require('d3-array');
+var request = require("basic-browser-request");
+var sb = require("standard-bail")();
+var handleError = require("handle-error-web");
+var renderSkeleton = require("../dom/render-skeleton");
+var Probable = require("probable").createProbable;
+var seedrandom = require("seedrandom");
+var cloneDeep = require("lodash.clonedeep");
+var curry = require("lodash.curry");
+var { range } = require("d3-array");
 
-import { Pt, BoneSrc, BoneNode } from '../types';
+import { Pt, BoneSrc, BoneNode } from "../types";
 
 const boardWidth = 100;
 const boardHeight = 100;
@@ -20,11 +20,12 @@ function skeletonFlow({
   skeleton,
   useExtraParts,
   numberOfSetsToUse = 1,
-  partExtension = 'svg',
+  partExtension = "svg",
   minimumNumberOfBones = 1,
   seed,
   still,
-  maxBonesPerSet = -1
+  maxBonesPerSet = -1,
+  message
 }) {
   var {
     roll,
@@ -35,16 +36,16 @@ function skeletonFlow({
     pickFromArray
   } = Probable({ random: seedrandom(seed) });
   var skeletonTable = createTableFromSizes([
-    [1, 'skeleton'],
-    [18, 'drawn-skeleton'],
-    [1, 'block-skeleton']
+    [1, "skeleton"],
+    [18, "drawn-skeleton"],
+    [1, "block-skeleton"]
   ]);
   if (!skeleton) {
     skeleton = skeletonTable.roll();
   }
 
   request(
-    { url: `data/${skeleton}.json`, method: 'GET', json: true },
+    { url: `data/${skeleton}.json`, method: "GET", json: true },
     sb(arrangeSkeleton, handleError)
   );
 
@@ -109,11 +110,11 @@ function skeletonFlow({
       }
       tries += 1;
       boneCount = countTreeNodes(0, rootBone);
-      console.log('tries:', tries, 'bone count:', boneCount);
+      console.log("tries:", tries, "bone count:", boneCount);
     } while (tries < maxTries && boneCount < minimumNumberOfBones);
 
     var bodyColor = pickFromArray(body.bgColors);
-    renderSkeleton({ rootBone, bodyColor, animate: !still });
+    renderSkeleton({ rootBone, bodyColor, animate: !still, message });
 
     function scaleBoneSrc(bone) {
       return {
@@ -159,7 +160,7 @@ function skeletonFlow({
           shouldReverseSeldom,
           shouldReverseOften
         ]),
-        rotateCount: roll(2) === 0 ? 'indefinite' : rollDie(20),
+        rotateCount: roll(2) === 0 ? "indefinite" : rollDie(20),
         rotationCenterX,
         rotationCenterY,
         translateX: connector ? fixPoint[0] - connector[0] : center[0],

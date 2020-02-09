@@ -37,6 +37,16 @@ body {
   margin-top: 1em;
 }
 
+.message {
+  font-family: Century Schoolbook;
+  font-size: 3px;
+}
+
+.callout {
+  stroke: #222;
+  stroke-width: 0.2px;
+}
+
 button {
   font-family: Ubuntu, roboto, noto, segoe ui, arial, -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, sans-serif;
   font-size: 1.2em;
