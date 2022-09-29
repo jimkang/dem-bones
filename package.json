@@ -32,7 +32,7 @@
     "d3-array": "^2.4.0",
     "d3-ease": "^1.0.3",
     "d3-selection": "^1.2.0",
-    "d3-transition": "^1.1.1",
+    "d3-transition": "^3.0.1",
     "handle-error-web": "^1.0.1",
     "lodash.curry": "^4.1.1",
     "probable": "^2.1.1",
